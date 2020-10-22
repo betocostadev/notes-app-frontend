@@ -1,0 +1,106 @@
+.app {
+  display: flex;
+  width: 60vw;
+  margin: 0.5rem auto;
+  padding: 1rem;
+  flex-direction: column;
+  box-shadow: 1px 4px 6px 2px rgba(0,0,0,0.2);
+}
+
+.app h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.note-list {
+  padding: 0;
+}
+
+.note-form input {
+  border: 2px solid #2a5cad;
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+}
+
+.note-form input:focus {
+  outline-color: #25c756;;
+  border: 2px solid #25c756;;
+}
+
+.note-form button {
+  margin-left: 1rem;
+}
+.error-message {
+  position: absolute;
+  width: 30vw;
+  left: 35vw;
+  background: rgb(214, 100, 100);
+  color: whitesmoke;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  padding: 0.75rem;
+  margin: 0.75rem 0;
+  list-style: none;
+  box-shadow: 1px 2px 3px 1px rgba(172, 3, 3, 0.356);
+  animation: showhide 3.8s ease-out;
+}
+
+.success-message {
+  position: absolute;
+  width: 30vw;
+  left: 35vw;
+  background: rgb(102, 214, 87);
+  color: whitesmoke;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  padding: 0.75rem;
+  margin: 0.75rem 0;
+  list-style: none;
+  box-shadow: 1px 2px 3px 1px rgba(29, 112, 23, 0.328);
+  animation: showhide 3.8s ease-out;
+  overflow: hidden;
+}
+
+@keyframes showhide {
+  0% {
+    top: -100px;
+  }
+  15% {
+    top: 20px;
+  }
+  85% {
+    top: 20px
+  }
+  100% {
+    top: -100px;
+  }
+}
+
+button {
+  background-color: #2a5cad;
+  border-radius: 0.4rem;
+  border: none;
+  color: white;
+  padding: 0.4rem 0.4rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.7rem;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+  transition: 0.2s;
+  text-transform: uppercase;
+}
+
+button:hover {
+  box-shadow: 0 4px 6px 1px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #78a5eeb9;
+}
