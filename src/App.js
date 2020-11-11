@@ -1,4 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
+import {
+  BrowserRouter as Router,
+  Switch, Route, Link
+} from 'react-router-dom'
 import noteService from './services/notes'
 import loginService from './services/login'
 
@@ -10,6 +14,14 @@ import Footer from './components/Footer'
 import Togglable from './components/Togglable'
 
 import './App.css'
+
+const Home = () => (
+  <div> <h2>TKTL notes app</h2> </div>
+)
+
+const Users = () => (
+  <div> <h2>Users</h2> </div>
+)
 
 const App = () => {
   const [notes, setNotes] = useState([])
@@ -161,6 +173,10 @@ const App = () => {
       })
   }
 
+  const padding = {
+    padding: 5
+  }
+
   const noteFormRef = useRef()
 
   const notesToShow = showAll
@@ -172,45 +188,66 @@ const App = () => {
 
   // DOM
   return (
-    <div className='app'>
-      <h1>Notes App</h1>
-      {
-        errorMessage
-          ? <Notification message={errorMessage} type={notifyType} />
-          : successMessage
-            ? <Notification message={successMessage} type={notifyType} />
-            : null
-      }
-      {
-        user === null
-          ?
-          <div>
-            <Togglable buttonLabel='login'>
-              <LoginForm login={handleLogin}
-              />
-            </Togglable>
-          </div>
-          :
-          <div>
-            <p>{user.name} logged-in</p><button onClick={handleLogout}>Logout</button>
-            <Togglable buttonLabel='new note' ref={noteFormRef}>
-              <NoteForm createNote={addNote} />
-            </Togglable>
-          </div>
-      }
-
-      <div>
-        <button onClick={() => setShowAll(!showAll)}>
-          show { showAll ? 'important' : 'all' }
-        </button>
+    <Router>
+      <div className="page-links">
+        <Link style={padding} to="/">home</Link>
+        <Link style={padding} to="/notes">notes</Link>
+        <Link style={padding} to="/users">users</Link>
       </div>
 
-      <ul className="note-list">
-        { noteList }
-      </ul>
+      <Switch>
+        <Route path="/notes">
+          <div className='app'>
+            <h1>Notes App</h1>
+            {
+              errorMessage
+                ? <Notification message={errorMessage} type={notifyType} />
+                : successMessage
+                  ? <Notification message={successMessage} type={notifyType} />
+                  : null
+            }
+            {
+              user === null
+                ?
+                <div>
+                  <Togglable buttonLabel='login'>
+                    <LoginForm login={handleLogin}
+                    />
+                  </Togglable>
+                </div>
+                :
+                <div>
+                  <p>{user.name} logged-in</p><button onClick={handleLogout}>Logout</button>
+                  <Togglable buttonLabel='new note' ref={noteFormRef}>
+                    <NoteForm createNote={addNote} />
+                  </Togglable>
+                </div>
+            }
+
+            <div>
+              <button onClick={() => setShowAll(!showAll)}>
+                show { showAll ? 'important' : 'all' }
+              </button>
+            </div>
+
+            <ul className="note-list">
+              { noteList }
+            </ul>
+          </div>
+        </Route>
+
+        <Route path="/users">
+          <Users />
+        </Route>
+
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
 
       <Footer />
-    </div>
+
+    </Router>
   )
 }
 

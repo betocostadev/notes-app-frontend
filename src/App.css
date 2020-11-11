@@ -13,6 +13,13 @@
   text-transform: uppercase;
 }
 
+.page-links {
+  display: flex;
+  margin: 0.5rem auto;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
 .note-list {
   padding: 0;
 }
