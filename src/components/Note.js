@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Note.css'
 
 const Note = ({ note, toggleImportance, deleteNote }) => {
@@ -9,7 +10,7 @@ const Note = ({ note, toggleImportance, deleteNote }) => {
     <li className={note.important ? 'note important' : 'note'}>
       <button className='note-button' onClick={toggleImportance}>{label}</button>
       <button className='delete-note-button' onClick={deleteNote}>X</button>
-      {note.content}
+      <Link to={`/notes/${note.id}`}>{note.content}</Link>
     </li>
   )
 }
