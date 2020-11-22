@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import {
   BrowserRouter as Router,
-  Switch, Route, Link
+  Switch, Route, Link, Redirect
 } from 'react-router-dom'
 import noteService from './services/notes'
 import loginService from './services/login'
@@ -193,6 +193,10 @@ const App = () => {
         <Link style={padding} to="/">home</Link>
         <Link style={padding} to="/notes">notes</Link>
         <Link style={padding} to="/users">users</Link>
+        {user
+          ? <em style={padding}>{user.name}</em>
+          : <Link style={padding} to="/login">login</Link>
+        }
       </div>
 
       <Switch>
@@ -236,8 +240,17 @@ const App = () => {
           </div>
         </Route>
 
-        <Route path="/users">
-          <Users />
+        <Route path="/users" render={() =>
+          user ? <Users /> : <Redirect to="/login" />
+        } />
+
+        <Route path="/login">
+          <div>
+            <Togglable buttonLabel='login'>
+              <LoginForm login={handleLogin}
+              />
+            </Togglable>
+          </div>
         </Route>
 
         <Route path="/">

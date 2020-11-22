@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import './LoginForm.css'
 import PropTypes from 'prop-types'
 
@@ -6,9 +7,12 @@ const LoginForm = ({ login }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+  const history = useHistory()
+
   const handleSubmit = (event) => {
     event.preventDefault()
     login({ username, password })
+    history.push('/')
   }
 
   const handleFields = (event) => {
