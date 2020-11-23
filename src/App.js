@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
+// useRouteMatch - To use with Router. Not working to found a matching note ID.
 import {
   BrowserRouter as Router,
-  Switch, Route, Link, Redirect
+  Switch, Route, Link, Redirect, useParams
 } from 'react-router-dom'
 import noteService from './services/notes'
 import loginService from './services/login'
@@ -22,6 +23,18 @@ const Home = () => (
 const Users = () => (
   <div> <h2>Users</h2> </div>
 )
+
+const TheNote = ({ notes }) => {
+  const id = useParams().id
+  const note = notes.find(n => n.id === id)
+  return (
+    <div>
+      <h2>{note.content}</h2>
+      <div>{note.user ? note.user.name : ''}</div>
+      <div><strong>{note.important ? 'important' : ''}</strong></div>
+    </div>
+  )
+}
 
 const App = () => {
   const [notes, setNotes] = useState([])
@@ -186,6 +199,13 @@ const App = () => {
   const noteList = notesToShow
     .map((note) => <Note key={note.id} toggleImportance={() => toggleImportanceOf(note.id)} deleteNote={() => removeNote(note.id)} note={note} />)
 
+  console.log(notes)
+
+  // const match = useRouteMatch('/notes/:id')
+  // const note = match
+  //   ? notes.find(note => note.id === match.params.id)
+  //   : null
+
   // DOM
   return (
     <Router>
@@ -200,6 +220,10 @@ const App = () => {
       </div>
 
       <Switch>
+        <Route path="/notes/:id">
+          <TheNote notes={notes} />
+        </Route>
+
         <Route path="/notes">
           <div className='app'>
             <h1>Notes App</h1>
